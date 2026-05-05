@@ -109,7 +109,7 @@ public class CardTest {
             );
             assertTrue( 
                 "Hidden cards' isRevealed() should return false", 
-                card.isRevealed() == true 
+                card.isRevealed() == false 
             );
         }
     }
