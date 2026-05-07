@@ -51,58 +51,46 @@ public class Hand implements ICardsCollection {
 
 	@Override
 	public final void addCard(Card pc) {
-		/*
-		 * TODO Atelier1
-		 */
+		if (pc != null) {
+			cards.add(pc);
+		}
 	}
 
 	@Override
 	public final Card removeTopCard() {
-		Card card = null;
-		/*
-		 * TODO Atelier1
-		 */
-		return card;
+		if (cards.isEmpty()) {
+			return null;
+		}
+		return cards.remove(0);
 	}
 
 	@Override
 	public final Card removeCard(int index) {
-		Card card = null;
-		/*
-		 * TODO Atelier1
-		 */
-		return card;
+		if (index < 0 || index >= cards.size()) {
+			return null;
+		}
+		return cards.remove(index);
 	}
 
 	@Override
 	public final boolean isEmpty() {
-		boolean ret = false;
-		/*
-		 * TODO Atelier1
-		 */
-		return ret;
+		return cards.isEmpty();
 	}
 
 	@Override
 	public final void clear() {
-		/*
-		 * TODO Atelier1
-		 */
+		cards.clear();
 	}
 
 	@Override
 	public final int size() {
-		int ret = 0;
-		/*
-		 * TODO Atelier1
-		 */
-		return ret;
+		return cards.size();
 	}
 
-//	@Override
-//	public String toString() {
-//		return "[" + cards + "]";
-//	}
+	@Override
+	public String toString() {
+		return "[" + cards + "]";
+	}
 
 	/**
 	 * @param index
@@ -111,10 +99,11 @@ public class Hand implements ICardsCollection {
 	 */
 	public final Card playCard(int index) {
 
-		Card card = null;
-		/*
-		 * TODO Atelier1
-		 */
+		if (index < 0 || index >= cards.size()) {
+			return null;
+		}
+		Card card = cards.remove(index);
+		card.reveale();
 		return card;
 	}
 
@@ -124,11 +113,11 @@ public class Hand implements ICardsCollection {
 	 */
 	public final boolean revealeCard(int index) {
 
-		Card card = null;
-		/*
-		 * TODO Atelier1
-		 */
-		return card != null ? true : false;
+		if (index < 0 || index >= cards.size()) {
+			return false;
+		}
+		cards.get(index).reveale();
+		return true;
 	}
 
 	/**
@@ -137,11 +126,11 @@ public class Hand implements ICardsCollection {
 	 */
 	public final boolean hideCard(int index) {
 
-		Card card = null;
-		/*
-		 * TODO Atelier1
-		 */
-		return card != null ? true : false;
+		if (index < 0 || index >= cards.size()) {
+			return false;
+		}
+		cards.get(index).hide();
+		return true;
 	}
 
 
