@@ -146,6 +146,7 @@ public class TestAtelier1 {
 		System.out.println("Après revealeCard(1) : " + hand);	// Après revealeCard(1) : [[?-?, Roi-Carreau]] 
 		hand.revealeCard(6);
 		System.out.println("Après revealeCard(6) : " + hand);	// Après revealeCard(6) : [[?-?, Roi-Carreau]] 
+		hand.revealeCard(0);
 		System.out.println("Après revealeCard(0) : " + hand);	// Après revealeCard(0) : [[2-Carreau, Roi-Carreau]] 
 
 		
@@ -208,18 +209,18 @@ public class TestAtelier1 {
 		
 		/* Test hideCard(), revealeCard(), playCard() */
 		p1.hideCard(0);
-		System.out.println("Après hideCard(0) : " + p1);	// Après hideCard(0) : [Joueur1 ** Hand[[?-?, Roi-Carreau, 2-Pique]] ** trickPile[[]]]
+		System.out.println("Après hideCard(0) : " + p1);	// Après hideCard(0) : [Joueur1 ** Hand[[?-?]] ** trickPile[[Roi-Carreau, 2-Pique]]]
 		p1.revealeCard(0);
-		System.out.println("Après revealeCard(0) : " + p1);	// Après revealeCard(0) : [Joueur1 ** Hand[[2-Carreau, Roi-Carreau, 2-Pique]] ** trickPile[[]]]
+		System.out.println("Après revealeCard(0) : " + p1);	// Après revealeCard(0) : [Joueur1 ** Hand[[2-Carreau]] ** trickPile[[Roi-Carreau, 2-Pique]]]
 		Card c8 = p1.playCard(0);
 		System.out.println("Après playCard : c8 : " + c8);	// Après playCard : c8 :  2-Carreau
-		System.out.println("Après playCard(0) : " + p1);	// Après playCard(0) : [Joueur1 ** Hand[[Roi-Carreau, 2-Pique]] ** trickPile[[]]]
+		System.out.println("Après playCard(0) : " + p1);	// Après playCard(0) : [Joueur1 ** Hand[[]] ** trickPile[[Roi-Carreau, 2-Pique]]]
 		
 		/* Test removeCardFromHand(), removeCardFromTrickPile() */
 		p1.addCardToTrickPile(p1.removeCardFromHand(0));
-		System.out.println("Après removeCardFromHand(0) : " + p1);	// Après removeCardFromHand(0) : [Joueur1 ** Hand[[Roi-Carreau]] ** trickPile[[2-Pique]]]
+		System.out.println("Après removeCardFromHand(0) : " + p1);	// Après removeCardFromHand(0) : [Joueur1 ** Hand[[]] ** trickPile[[Roi-Carreau, 2-Pique]]]
 		p1.removeCardFromTrickPile(0);
-		System.out.println("Après removeCardFromTrickPile(0) : " + p1);	// Après removeCardFromTrickPile(0) : [Joueur1 ** Hand[[2-Pique]] ** trickPile[[]]]
+		System.out.println("Après removeCardFromTrickPile(0) : " + p1);	// Après removeCardFromTrickPile(0) : [Joueur1 ** Hand[[]] ** trickPile[[2-Pique]]]
 		
 		
 		/* Test equals(), compareTo */
