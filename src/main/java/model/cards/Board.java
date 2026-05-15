@@ -1,10 +1,6 @@
 package model.cards;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
 
 import allShared.ICardsCollection;
 
@@ -17,103 +13,24 @@ import allShared.ICardsCollection;
  * Question CB : qu'est-ce qui justifie existence de cette classe 
  * qui n'a aucun comportement spécifique ?
  * 
+ * Réponse : sa sémantique métier. Un Board n'est pas une liste de cartes
+ * quelconque : c'est le tapis de jeu. Ce type distinct documente l'intention,
+ * permet un typage plus sûr et laisse la porte ouverte à des règles
+ * spécifiques au tapis (par exemple un tapis qui refuse plus de N cartes).
+ * 
  * @author francoise.perrin
  */
-public  class Board extends AbstractCardsCollection {
-	
-	
-	/*
-	 *************** TODO ToChange Atelier2 ***************
-	 */
-	
-	private final List<Card> cards; 
+public class Board extends AbstractCardsCollection {
 
 	public Board() {
 		super();
-		cards = new ArrayList<Card>();
 	}
 
 	public Board(Collection<Card> collection) {
-		super();
-		cards = new ArrayList<Card>(collection);
+		super(collection);
 	}
 
 	public Board(ICardsCollection iCardsCollection) {
-		super();
-		cards = null;
+		super(iCardsCollection);
 	}
-
-	@Override
-	public void shuffle() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Card removeTopCard() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Card removeCard(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addCard(Card pc) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Card max() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Card max(Comparator<Card> comparator) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void sort() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void sort(Comparator<Card> comparator) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Iterator<Card> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }
