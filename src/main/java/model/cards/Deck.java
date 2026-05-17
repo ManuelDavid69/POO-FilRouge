@@ -1,10 +1,6 @@
 package model.cards;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
 
 import allShared.ICardsCollection;
 
@@ -19,11 +15,20 @@ import allShared.ICardsCollection;
  * @author francoise.perrin
  */
 public class Deck extends AbstractCardsCollection {
-	
+
+	/** Index du rang _7 dans Rank.values() : premier rang d'un jeu de 32 cartes. */
+	private static final int FIRST_RANK_OF_32_DECK = 5;
+
+	/**
+	 * Fabrique un Deck vide.
+	 */
+	public Deck() {
+		super();
+	}
+
 	/**
 	 * le constructeur fabrique un jeu de 32 ou de 52 cartes
 	 * selon la taille du Deck passée en paramètre
-	 * Tips : la méthode values prédéfinie sur les enum peut être utile...
 	 * 
 	 * Ex si deckSize = 32, le contenu du Deck est le suivant :
 	 * 	[[7-Carreau, 7-Coeur, 7-Pique, 7-Trefle, 
@@ -34,111 +39,35 @@ public class Deck extends AbstractCardsCollection {
 	 * 	Dame-Carreau, Dame-Coeur, Dame-Pique, Dame-Trefle, 
 	 * 	Roi-Carreau, Roi-Coeur, Roi-Pique, Roi-Trefle, 
 	 * 	As-Carreau, As-Coeur, As-Pique, As-Trefle]]
+	 * 
+	 * @param deckSize 32 (sans les 2 à 6) ou 52 (jeu complet)
 	 */
-	
-	/*
-	 *************** TODO ToChange Atelier2 ***************
-	 */
-	
-	private final List<Card> cards; 
-
-	public Deck() {
-		super();
-		cards = new ArrayList<Card>();
-	}
-	
 	public Deck(int deckSize) {
 		super();
-		cards = new ArrayList<Card>();
-		
-		/*
-		 * TODO Atelier2
-		 */
 
+		int firstRank;
+		if (deckSize == 32) {
+			firstRank = FIRST_RANK_OF_32_DECK;
+		} else if (deckSize == 52) {
+			firstRank = 0;
+		} else {
+			throw new IllegalArgumentException(
+					"Un Deck doit contenir 32 ou 52 cartes (demandé : " + deckSize + ")");
+		}
+
+		Rank[] ranks = Rank.values();
+		for (int rankIndex = firstRank; rankIndex < ranks.length; rankIndex++) {
+			for (Suit suit : Suit.values()) {
+				this.addCard(new Card(ranks[rankIndex], suit));
+			}
+		}
 	}
 
 	public Deck(Collection<Card> collection) {
-		super();
-		cards = new ArrayList<Card>(collection);
+		super(collection);
 	}
 
-	
 	public Deck(ICardsCollection iCardsCollection) {
-		super();
-		cards = null;
+		super(iCardsCollection);
 	}
-	
-	@Override
-	public void shuffle() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Card removeTopCard() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Card removeCard(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addCard(Card pc) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Card max() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Card max(Comparator<Card> comparator) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void sort() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void sort(Comparator<Card> comparator) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Iterator<Card> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 }
