@@ -12,10 +12,10 @@ public class NewWarGameCardComparator implements Comparator<Card>{
 
 	@Override
 	public int compare(Card card1, Card card2) {
-		int ret = -999999;
-		/*
-		 * TODO Atelier2
-		 */
-		return ret;
+		int diff = card1.getRank().getRank() - card2.getRank().getRank();
+		if (diff == 0) {
+			diff = card1.getSuit().value() - card2.getSuit().value();
+		}
+		return diff;
 	}
 }
