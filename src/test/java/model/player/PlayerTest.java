@@ -126,6 +126,31 @@ public class PlayerTest {
     }
 
     @Test
+    public void wonCardsShouldReturnToTheHandAndBeShuffled() {
+        Player winner = new Player("Joueur1");
+        Card twoOfDiamonds = new Card(Rank._2, Suit.CARREAU);
+        Card kingOfDiamonds = new Card(Rank._ROI, Suit.CARREAU);
+        Card twoOfSpades = new Card(Rank._2, Suit.PIQUE);
+        twoOfDiamonds.reveale();
+        kingOfDiamonds.reveale();
+        twoOfSpades.reveale();
+
+        winner.addCardToHand(twoOfDiamonds);
+        winner.addCardToTrickPile(kingOfDiamonds);
+        winner.addCardToTrickPile(twoOfSpades);
+
+        winner.addWonCardsBackToHand();
+
+        assertTrue(winner.isTrickPileEmpty());
+        assertFalse(winner.isHandEmpty());
+        assertTrue(winner.hasWonAllCards(3));
+        String state = winner.toString();
+        assertTrue(state.contains("2-Carreau"));
+        assertTrue(state.contains("Roi-Carreau"));
+        assertTrue(state.contains("2-Pique"));
+    }
+
+    @Test
     public void playersShouldBeComparedAndEqualByName() {
         Player other = new Player("Joueur2");
         IPlayer third = new Player("Joueur3");
