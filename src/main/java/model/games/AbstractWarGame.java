@@ -42,8 +42,18 @@ public abstract class AbstractWarGame extends AbstractGame implements IGame {
 	protected final void dealCardsFromDeck(int nbCards) {
 	
 		/*
-		 * TODO Atelier3
+		 * On mélange le paquet puis on distribue une carte à la fois,
+		 * dans l'ordre des joueurs (distribution en tournante).
 		 */
+		this.deck.shuffle();
+		for (int round = 0; round < nbCards; round++) {
+			for (Player player : this.players) {
+				Card card = this.deck.removeTopCard();
+				if (card != null) {
+					player.addCardToHand(card);
+				}
+			}
+		}
 	}
 
 	
