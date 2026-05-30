@@ -199,9 +199,13 @@ public abstract class AbstractGame implements IGame {
 	public final Map<IPlayer, ICard> getGamingMatRender() {
 		Map<IPlayer, ICard> gamingMatMapRender = new TreeMap<IPlayer, ICard>();
 
-		/*
-		 * TODO Atelier3
-		 */
+		for (Entry<Player, Card> entry : this.gamingMatMap.entrySet()) {
+			if (entry.getValue() != null) {
+				gamingMatMapRender.put(
+						new PlayerRender(entry.getKey()),
+						new CardRender(entry.getValue()));
+			}
+		}
 		 
 		return gamingMatMapRender;
 	}
@@ -253,9 +257,12 @@ public abstract class AbstractGame implements IGame {
 	public final PlayerRender theWinnerIs() {
 		PlayerRender winnerPlayer = null;
 
-		/*
-		 * TODO Atelier3
-		 */
+		for (Player player : this.players) {
+			if (player.isGameWinner()) {
+				winnerPlayer = new PlayerRender(player);
+				break;
+			}
+		}
 
 		return winnerPlayer;
 	}
