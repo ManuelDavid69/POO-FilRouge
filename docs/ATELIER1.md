@@ -83,8 +83,8 @@ Les deux méthodes ne sont pas redondantes, même si l'implémentation actuelle 
 ## 4. Validation
 
 ```bash
-mvn exec:java -Dexec.mainClass=launcher.TestAtelier1
-mvn test
+./mvnw exec:java -Dexec.mainClass=launcher.TestAtelier1
+./mvnw test
 ```
 
 Extrait de trace attendu :

@@ -155,24 +155,31 @@ mvn clean test
 
 ## Compiler et exécuter
 
-Prérequis : **JDK 25** et **Maven 3.9+**.
+Prérequis : **JDK 25**. Maven 3.9+ est optionnel : le dépôt fournit le **Maven Wrapper**.
 
 ```bash
-# Compiler et lancer tous les tests
-mvn clean test
+# Linux / macOS
+./mvnw clean test
 
+# Windows PowerShell
+.\mvnw.cmd clean test
+```
+
+Si Maven est installé globalement, `mvn` fonctionne de la même façon.
+
+```bash
 # Lancer le jeu (vues console + Swing)
-mvn exec:java -Dexec.mainClass=launcher.GameLauncher
+./mvnw exec:java -Dexec.mainClass=launcher.GameLauncher
 
 # Rejouer les traces des ateliers
-mvn exec:java -Dexec.mainClass=launcher.TestAtelier1
-mvn exec:java -Dexec.mainClass=launcher.TestAtelier2
+./mvnw exec:java -Dexec.mainClass=launcher.TestAtelier1
+./mvnw exec:java -Dexec.mainClass=launcher.TestAtelier2
 ```
 
 > Sous PowerShell, mettre la propriété entre guillemets :
-> `mvn exec:java "-Dexec.mainClass=launcher.GameLauncher"`.
+> `.\mvnw.cmd exec:java "-Dexec.mainClass=launcher.GameLauncher"`.
 
-Sans Maven, après `mvn package` :
+Sans Maven ni wrapper, après compilation :
 
 ```bash
 java -cp target/classes launcher.GameLauncher

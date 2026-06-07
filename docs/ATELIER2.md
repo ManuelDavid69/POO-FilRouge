@@ -184,8 +184,8 @@ La version `for (Card card : this.trickPile)` (itérateur implicite) produit exa
 ## 7. Validation
 
 ```bash
-mvn exec:java -Dexec.mainClass=launcher.TestAtelier2
-mvn test
+./mvnw exec:java -Dexec.mainClass=launcher.TestAtelier2
+./mvnw test
 ```
 
 Points de contrôle de la trace :
