@@ -71,6 +71,13 @@ Un joueur possède un nom, une **main** (`Hand`) et une **pile de plis gagnés**
 
 `Player` est une façade : il ne réimplémente pas la logique des collections, il la délègue à `Hand`.
 
+### Question du carnet de bord : `isStillActive()` et `isHandEmpty()`
+
+Les deux méthodes ne sont pas redondantes, même si l'implémentation actuelle les relie :
+
+- `isHandEmpty()` est une question **structurelle** posée à l'objet concret `Player` : « ta main est-elle vide ? ».
+- `isStillActive()` appartient au contrat `IPlayer` : c'est une question **métier** dont dépend le moteur de jeu. Sa définition pourrait évoluer (par exemple, un joueur dont la pile de plis n'est pas vide reste actif dans certaines variantes) sans que `AbstractWarGame` ait à changer. Le moteur ne dépend que de l'interface.
+
 ---
 
 ## 4. Validation

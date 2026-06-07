@@ -50,6 +50,16 @@ Le constructeur par copie permet d'écrire `new Hand(board)`, `new Deck(hand)` o
 | `Deck` | Sait se fabriquer lui-même à partir d'une taille. |
 | `Board` | Aucun comportement propre : sa raison d'être est **sémantique** (c'est le tapis de jeu, pas une liste quelconque). |
 
+### Question du carnet de bord
+
+> « Qu'est-ce qui justifie l'existence de cette classe, au-delà de la factorisation du code commun ? »
+
+Trois éléments, qui ne relèvent pas de la simple économie de lignes :
+
+1. **Un type commun.** Les clients manipulent `ICardsCollection` / `AbstractCardsCollection`, jamais une `List<Card>` nue. Le jour où l'implémentation interne change (liste chaînée, tableau, collection immuable), aucun client ne change.
+2. **Un adaptateur.** La classe enveloppe une `List` et contrôle les invariants du domaine : refus des `null`, bornes des index, comportement cohérent de `max()` sur une collection vide. C'est le pattern Adapter.
+3. **La substituabilité.** Toutes les collections partagent le même contrat, ce qui rend possible le constructeur par copie polymorphe (`new Hand(board)`, `new Deck(hand)`, etc.) et le passage indifférencié d'un `Deck`, d'un `Hand` ou d'un `Board` à une méthode qui attend un `ICardsCollection`.
+
 ---
 
 ## 2. `Deck(int deckSize)`
@@ -127,6 +137,10 @@ Le garde `maxCard == null` évite un `NullPointerException` sur un pli vide.
 |---|---|---|
 | `[2-Carreau, 2-Pique, 7-Carreau, Roi-Pique]` | `Roi-Pique` | `Roi-Pique` |
 | `[2-Carreau, 2-Pique]` | `null` (bataille) | `2-Pique` |
+
+### Rôle des classes `ClassicWarGame` et `NewWarGame`
+
+`ClassicWarGame` et `NewWarGame` n'ajoutent aucune règle : elles **fixent la stratégie** d'évaluation en renvoyant l'évaluateur approprié. C'est le point d'assemblage du pattern Strategy. On pourrait les remplacer par une factory d'évaluateurs, mais leur existence rend le choix de la variante explicite dans `GameFactory` et donne un type de jeu concret au Controller.
 
 ---
 
