@@ -12,11 +12,8 @@ import allShared.IGame;
 import allShared.IGameEvaluator;
 import allShared.IPlayer;
 import controller.CardsCollectionFactory;
-import model.cards.Board;
 import model.cards.Card;
 import model.cards.CardRender;
-import model.cards.Rank;
-import model.cards.Suit;
 import model.player.Player;
 import model.player.PlayerRender;
 
@@ -64,25 +61,8 @@ public abstract class AbstractGame implements IGame {
 		 * de manière différente selon le type de jeu
 		 */
 		this.deck = deck;
-		
-		/* 
-		 * [Ces lignes ne sont utiles que pour tester les algos avec 
-		 * 4 cartes : à commenter/supprimer après les tests]
-		 */
-		this.initDeckSize = 4;
-		Player player;
-		player = this.players.get(0);
-		player.addCardToHand(new Card(Rank._AS, Suit.CARREAU));
-		player.addCardToHand(new Card(Rank._10, Suit.CARREAU));
-		player = this.players.get(1);
-		player.addCardToHand(new Card(Rank._AS, Suit.COEUR));
-		player.addCardToHand(new Card(Rank._9, Suit.CARREAU));
-		
-		/* 
-		 * [Ces lignes seront à décommenter après les tests avec 4 cartes]
-		 */
-//		this.initDeckSize = this.deck.size();
-//		this.dealCardsFromDeck(this.initDeckSize / this.players.size());
+		this.initDeckSize = this.deck.size();
+		this.dealCardsFromDeck(this.initDeckSize / this.players.size());
 	
 	}
 	
