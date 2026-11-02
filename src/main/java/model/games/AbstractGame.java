@@ -96,9 +96,44 @@ public abstract class AbstractGame implements IGame {
 	public final void PlayCards(Map<String, Integer> whichCardArePlayed) {
 
 		/*
-		 * TODO Atelier3
+		 * Nouveau tour : on repart d'un tapis de tour vide.
+		 * Les cartes déjà posées lors d'une bataille restent, elles,
+		 * dans le Board (le pot), pas dans gamingMatMap.
 		 */
-		
+		this.gamingMatMap.clear();
+
+		for (Player player : this.players) {
+
+			/*
+			 * Un joueur sans carte en main récupère ses plis gagnés
+			 * (mélangés) avant de rejouer. S'il n'a vraiment plus rien,
+			 * il ne peut pas jouer ce tour-ci.
+			 */
+			if (player.isHandEmpty() && !player.isTrickPileEmpty()) {
+				player.addWonCardsBackToHand();
+			}
+			if (!player.isStillActive()) {
+				continue;
+			}
+
+			int cardIndex = 0;
+			if (whichCardArePlayed != null) {
+				Integer chosenIndex = whichCardArePlayed.get(player.getName());
+				if (chosenIndex != null && chosenIndex.intValue() >= 0) {
+					cardIndex = chosenIndex.intValue();
+				}
+			}
+
+			Card playedCard = player.playCard(cardIndex);
+			if (playedCard == null && cardIndex != 0) {
+				playedCard = player.playCard(0);
+			}
+
+			if (playedCard != null) {
+				this.gamingMatMap.put(player, playedCard);
+				this.board.addCard(playedCard);
+			}
+		}
 	}
 
 	
