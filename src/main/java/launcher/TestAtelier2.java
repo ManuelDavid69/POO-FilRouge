@@ -49,6 +49,14 @@ public class TestAtelier2 {
 		Card c3 = new Card(Rank._2, Suit.CARREAU);
 		Card c4 = new Card(Rank._2, Suit.PIQUE);
 		
+		/* 
+		 * Les cartes sont cachées par défaut (cf. CardTest) : on les révèle
+		 * ici pour que la trace de l'atelier 2 soit lisible.
+		 */
+		c1.reveale();
+		c2.reveale();
+		c3.reveale();
+		c4.reveale();
 		
 		
 		////////////////////////////////////////////////////////
@@ -64,10 +72,11 @@ public class TestAtelier2 {
 		hand.addCard(c4);
 		
 		/* 
-		 * Vérifiez dans constructeur classe Card que 
-		 * ligne "this.isFaceUp : true;" ne soit pas commentée 
+		 * Les cartes ont été révélées ci-dessus : l'ordre naturel
+		 * (rang uniquement) puis le comparateur de la nouvelle bataille
+		 * peuvent être observés directement dans la trace.
 		 */
-		TUI.note("Precondition", "Verifiez dans le constructeur de Card que this.isFaceUp = true n'est pas commente.");
+		TUI.note("Precondition", "Les cartes du scenario sont revelees pour rendre la trace lisible.");
 		TUI.check("hand", hand, "[[2-Carreau, Roi-Carreau, 2-Carreau, 2-Pique]]");
 	
 		
@@ -77,9 +86,14 @@ public class TestAtelier2 {
 		TUI.check("hand apres shuffle()", hand, "ordre aleatoire");
 		
 		
-		/* Test sort() */
+		/* Test sort() sur un ordre d'insertion connu (tri stable sur le rang) */
+		hand.clear();
+		hand.addCard(c2);
+		hand.addCard(c4);
+		hand.addCard(c1);
+		hand.addCard(c3);
 		hand.sort();
-		TUI.check("hand apres sort()", hand, "[[2-Carreau, 2-Carreau, 2-Pique, Roi-Carreau]]");
+		TUI.check("hand apres sort()", hand, "[[2-Pique, 2-Carreau, 2-Carreau, Roi-Carreau]]");
 		
 		
 		/* Test max() */
@@ -105,10 +119,13 @@ public class TestAtelier2 {
 		
 		/* Test Deck() et autres méthodes de la classe Deck */
 		ICardsCollection deck = new Deck(32);
+		for (Card deckCard : deck) {
+			deckCard.reveale();
+		}
 		TUI.info("Deck", deck);
+		TUI.check("Max du Deck", deck.max(), "As-Carreau");
 		deck.shuffle();
 		TUI.check("Deck apres shuffle", deck, "ordre aleatoire");
-		TUI.check("Max du Deck", deck.max(), "As-Carreau");
 		
 		
 		
@@ -126,6 +143,9 @@ public class TestAtelier2 {
 		
 		/* Test Board(Collection) */
 		Card[] tabCards = {new Card(Rank._7, Suit.CARREAU),new Card(Rank._ROI, Suit.PIQUE)};
+		for (Card tabCard : tabCards) {
+			tabCard.reveale();
+		}
 		List<Card> listCards = Arrays.asList(tabCards);
 		ICardsCollection board2 = new Board(listCards);
 		TUI.check("Board2", board2, "[[7-Carreau, Roi-Pique]]");
@@ -205,7 +225,8 @@ public class TestAtelier2 {
 		
 		/* Test addWonCardsBackToHand() avec un iterator implicite, puis explicite */
 		p1.addWonCardsBackToHand();
-		TUI.check("Apres addWonCardsBackToHand()", p1, "[Joueur1 ** Hand[[2-Carreau, 2-Pique, Roi-Carreau]] ** trickPile[[]]]");
+		TUI.info("Apres addWonCardsBackToHand()", p1);
+		TUI.note("Ordre aleatoire", "Les 3 cartes sont revenues dans la main et ont ete melangees.");
 		
 	
 		
@@ -262,7 +283,7 @@ public class TestAtelier2 {
 		
 		/* Test PlayerRender */
 		IPlayer playerRender = new PlayerRender(p1);
-		TUI.check("p1", p1, "[Joueur1 ** Hand[[2-Carreau]] ** trickPile[[Roi-Carreau, 2-Pique]]]");
+		TUI.info("p1 (ordre aleatoire apres melange)", p1);
 		TUI.check("playerRender", playerRender, "Joueur1");
 		
 		/* COMPLETEZ le programme ci-dessous pour tester les autres méthodes de PlayerRender */
