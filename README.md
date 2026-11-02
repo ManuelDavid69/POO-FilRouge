@@ -1,5 +1,9 @@
 # POO Fil Rouge — Le jeu de la Bataille (Java)
 
+![Java CI](https://github.com/ManuelDavid69/POO-FilRouge/actions/workflows/maven.yml/badge.svg)
+![Java 25](https://img.shields.io/badge/Java-25-orange)
+![Maven](https://img.shields.io/badge/Maven-3.9%2B-blue)
+
 Projet du cours de **Programmation Orientée Objet** (CPE Lyon) : implémentation complète du jeu de la **Bataille** en Java, en architecture **MVC**, avec une progression en trois ateliers et une mise en pratique de plusieurs design patterns.
 
 > Squelette initial fourni par Françoise Perrin (CPE Lyon). Les ateliers 1 à 3, les tests et la documentation ont été réalisés dans ce dépôt.
