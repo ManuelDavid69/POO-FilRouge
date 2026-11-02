@@ -68,8 +68,16 @@ public abstract class AbstractWarGame extends AbstractGame implements IGame {
 		boolean isGameEnd = false;
 		
 		/*
-		 * TODO Atelier3
+		 * Un joueur a gagné lorsqu'il détient toutes les cartes du jeu
+		 * (main + pile de plis). Le dernier joueur encore en jeu est
+		 * donc désigné vainqueur.
 		 */
+		for (Player player : this.players) {
+			if (player.hasWonAllCards(this.initDeckSize)) {
+				player.setGameWinner(true);
+				isGameEnd = true;
+			}
+		}
 		return isGameEnd;
 	}
 
