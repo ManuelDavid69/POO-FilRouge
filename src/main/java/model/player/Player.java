@@ -155,9 +155,16 @@ public class Player implements IPlayer{
 	public void addWonCardsBackToHand() {
 
 		/*
-		 * TODO Atelier2
+		 * Parcours explicite par Iterator (le for-each implicite donnerait
+		 * exactement le même résultat) : les cartes gagnées quittent la
+		 * trickPile pour rejoindre la main, qui est ensuite mélangée.
 		 */
-		  
+		Iterator<Card> iterator = this.trickPile.iterator();
+		while (iterator.hasNext()) {
+			this.hand.addCard(iterator.next());
+		}
+		this.trickPile.clear();
+		this.hand.shuffle();
 	}
 	
 }
