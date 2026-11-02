@@ -12,6 +12,7 @@ import allShared.IGame;
 import allShared.IGameEvaluator;
 import allShared.IPlayer;
 import controller.CardsCollectionFactory;
+import model.cards.Board;
 import model.cards.Card;
 import model.cards.CardRender;
 import model.player.Player;
@@ -150,11 +151,34 @@ public abstract class AbstractGame implements IGame {
 	public final boolean evaluateTrickWinner() {
 		
 		boolean isTrickWon = false;
-		Player trickWinnerPlayer = null;
 		
+		for (Player player : this.players) {
+			player.setTrickWinner(false);
+		}
+
 		/*
-		 * TODO Atelier3
+		 * Seules les cartes du tour courant sont évaluées. Lors d'une
+		 * bataille, les cartes des tours précédents restent dans le Board
+		 * (le pot) mais ne doivent pas influencer le nouveau pli.
 		 */
+		ICardsCollection currentTrick = new Board();
+		for (Card card : this.gamingMatMap.values()) {
+			if (card != null) {
+				currentTrick.addCard(card);
+			}
+		}
+
+		Card trickWinnerCard = this.getGameEvaluator().evaluateTrickWinner(currentTrick);
+		
+		if (trickWinnerCard != null) {
+			for (Entry<Player, Card> entry : this.gamingMatMap.entrySet()) {
+				if (trickWinnerCard.equals(entry.getValue())) {
+					entry.getKey().setTrickWinner(true);
+					isTrickWon = true;
+					break;
+				}
+			}
+		}
 		
 		return isTrickWon;
 	}
@@ -190,10 +214,24 @@ public abstract class AbstractGame implements IGame {
 	@Override
 	public final void theWinnerTakesItAll() {
 
-		/*
-		 * TODO Atelier3
-		 */
+		Player trickWinnerPlayer = null;
+		for (Player player : this.players) {
+			if (player.isTrickWinner()) {
+				trickWinnerPlayer = player;
+				break;
+			}
+		}
 
+		if (trickWinnerPlayer != null) {
+			for (Card card : this.board) {
+				trickWinnerPlayer.addCardToTrickPile(card);
+			}
+			this.board.clear();
+		}
+
+		for (Player player : this.players) {
+			player.setTrickWinner(false);
+		}
 	}
 
 
