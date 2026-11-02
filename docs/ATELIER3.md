@@ -166,8 +166,8 @@ Ce scénario est vérifié par `GameTest.battleShouldKeepThePotUntilTheTrickIsWo
 ## 8. Validation
 
 ```bash
-mvn clean test
-mvn exec:java -Dexec.mainClass=launcher.GameLauncher
+./mvnw clean test
+./mvnw exec:java -Dexec.mainClass=launcher.GameLauncher
 ```
 
 - `GameTest` couvre la distribution, la pose, l'évaluation, la bataille, le ramassage, le recyclage et la fin de partie.
